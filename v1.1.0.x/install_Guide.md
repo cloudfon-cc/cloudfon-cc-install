@@ -56,5 +56,4 @@ cd /root/cloudfon-cc && /bin/sh cloudfon_cc_ctl.sh rm
 # 登陆操作
 ~~~
 use http://8.218.96.81:8000 to login
-default user: admin  password: admin
 ~~~
