@@ -27,14 +27,14 @@ set_firewall(){
     systemctl enable firewalld
     systemctl start firewalld
     echo ""
-    echo "====>Configure PBX's default firewall rules"
+    echo "====>Configure cloudfon-cc's default firewall rules"
     echo ""
     firewall-cmd --zone=trusted --remove-interface=docker0 --permanent
     firewall-cmd --reload
     firewall-cmd --permanent --add-service=ssh
-    firewall-cmd --permanent --new-service=cloudfon-cc-pbx || true
-    firewall-cmd --permanent --service=cloudfon-cc-pbx --add-port=8000/tcp --set-description="cloudfon-cc PBX"
-    firewall-cmd --permanent --add-service=cloudfon-cc-pbx
+    firewall-cmd --permanent --new-service=cloudfon-cc || true
+    firewall-cmd --permanent --service=cloudfon-cc --add-port=8000/tcp --set-description="cloudfon-cc"
+    firewall-cmd --permanent --add-service=cloudfon-cc
     firewall-cmd --reload
     systemctl restart firewalld
     echo ""
@@ -89,7 +89,7 @@ install_docker_on_ubuntu(){
     echo ""
     curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add -
     add-apt-repository -y "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
-    apt-get update -y 
+    apt-get update -y
     echo ""
     echo "====>Try to install the docker"
     echo ""
@@ -113,7 +113,7 @@ install_docker_on_debian(){
     echo "====>Try to update system"
     echo ""
     apt-get remove docker docker-engine docker.io containerd runc || true
-    apt update -y 
+    apt update -y
     apt upgrade -y
     echo ""
     echo "====>System updated"

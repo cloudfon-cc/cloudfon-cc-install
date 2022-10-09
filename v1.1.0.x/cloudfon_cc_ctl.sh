@@ -2,7 +2,7 @@
 set -e
 
 if [ -z $1 ];
-then 
+then
     echo -e "\t => need parameters <="
     exit -1
 fi
@@ -60,7 +60,7 @@ FEOF
 
 create() {
     echo ""
-    echo "==> try to create pbx service <=="
+    echo "==> try to create cloudfon-cc service <=="
     echo ""
     #echo " args: $@"
     #echo "The number of arguments passed in are : $#"
@@ -69,7 +69,7 @@ create() {
     shift
 
     export_configure
-    # run pbx service
+    # run cloudfon-cc service
     docker compose up -d
 
     echo ""
@@ -86,7 +86,7 @@ status() {
 
     # parse parameters
     while getopts s: option
-    do 
+    do
         case "${option}" in
             s)
                 service_name=${OPTARG}
@@ -117,14 +117,14 @@ restart() {
 
     # parse parameters
     while getopts s: option
-    do 
+    do
         case "${option}" in
             s)
                 service_name=${OPTARG}
                 ;;
         esac
     done
-	
+
 	# check parameters is exist
     if [ -z "$service_name" ]; then
         echo ""
@@ -148,7 +148,7 @@ start() {
 
     # parse parameters
     while getopts s: option
-    do 
+    do
         case "${option}" in
             s)
                 service_name=${OPTARG}
@@ -178,14 +178,14 @@ stop() {
 
     # parse parameters
     while getopts s: option
-    do 
+    do
         case "${option}" in
             s)
                 service_name=${OPTARG}
                 ;;
         esac
     done
-	
+
 	# check parameters is exist
     if [ -z "$service_name" ]; then
         echo ""
@@ -208,7 +208,7 @@ rm() {
 
     # # parse parameters
     # while getopts f option
-    # do 
+    # do
     #     case "${option}" in
     #         f)
     #             remove_data=true
@@ -217,9 +217,6 @@ rm() {
     # done
 
     docker compose down
-
-    docker volume rm `docker volume ls  -q | grep pbx-data` || true
-    docker volume rm `docker volume ls  -q | grep pbx-db` || true
 }
 
 case $1 in
