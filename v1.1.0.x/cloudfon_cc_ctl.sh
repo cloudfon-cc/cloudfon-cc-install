@@ -17,7 +17,7 @@ version: '3.9'
 services:
   # callcenter api
   cc_api:
-    image: cc_api:v1.0.0
+    image: puteyun/cloud_contact_center:0.1.1
     container_name: cc_api
     volumes:
       - ./:/data
@@ -39,7 +39,7 @@ services:
       dockerfile: ./Dockerfile
   # webrtc 网关
   cc_gateway:
-    image: cc_gateway:v1.0.0
+    image: puteyun/cloud_contact_gateway:0.0.1
     container_name: cc_gateway
     network_mode: host
     volumes:
