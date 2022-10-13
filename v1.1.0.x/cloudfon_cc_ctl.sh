@@ -13,41 +13,77 @@ export_configure() {
     echo ""
 
     cat << FEOF > docker-compose.yml
-version: '3'
+version: '3.9'
 services:
   # callcenter api
   cc_api:
-    image: puteyun/cloud_contact_center:0.1.0
+    image: cc_api:v1.0.0
     container_name: cc_api
     volumes:
       - ./:/data
     ports:
-      - "8000:8000"
+      - "8001:8000"
+    healthcheck:
+      test: [ "CMD", "curl" ,"--fail","-k", "https://localhost:8000/time"]
+      timeout: 20s
+      retries: 10
     depends_on:
-      cc_mysql:
+      cc_mariadb:
+        condition: service_healthy
+      cc_redis:
         condition: service_healthy
     networks:
       - cc_network
-  #  build:
-  #    context: ./cc_service
-  #    dockerfile: ./Dockerfile
+    build:
+      context: ./cc_api
+      dockerfile: ./Dockerfile
+  # webrtc 网关
+  cc_gateway:
+    image: cc_gateway:v1.0.0
+    container_name: cc_gateway
+    network_mode: host
+    volumes:
+      - ./:/data
+    depends_on:
+      cc_mariadb:
+        condition: service_healthy
+      cc_api:
+        condition: service_healthy
+      cc_redis:
+        condition: service_healthy
+    build:
+      context: cc_gateway
+      dockerfile: ./Dockerfile
   # mysql database
-  cc_mysql:
-    image: mysql:8.0.30
-    container_name: cc_mysql
+  cc_mariadb:
+    image: mariadb:10.6.7
+    container_name: cc_mariadb
     volumes:
       - ./mariadb_data/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 8ccDNF77xcJKO
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost","-p8ccDNF77xcJKO"]
       timeout: 20s
       retries: 10
     # if want expose to external,please uncomment this
-    # ports:
-    #   - "3306:3306"
+    ports:
+      - "53306:3306"
     networks:
       - cc_network
+  cc_redis:
+    image: redis
+    container_name: cc_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - cc_network
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
 networks:
   cc_network:
     name: cc_network
