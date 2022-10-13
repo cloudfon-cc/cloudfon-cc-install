@@ -34,9 +34,6 @@ services:
         condition: service_healthy
     networks:
       - cc_network
-    build:
-      context: ./cc_api
-      dockerfile: ./Dockerfile
   # webrtc 网关
   cc_gateway:
     image: puteyun/cloud_contact_gateway:0.0.1
@@ -51,9 +48,6 @@ services:
         condition: service_healthy
       cc_redis:
         condition: service_healthy
-    build:
-      context: cc_gateway
-      dockerfile: ./Dockerfile
   # mysql database
   cc_mariadb:
     image: mariadb:10.6.7
