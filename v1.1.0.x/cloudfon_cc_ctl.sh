@@ -23,6 +23,7 @@ services:
       - ./:/data
     ports:
       - "8001:8000"
+    restart: always
     healthcheck:
       test: [ "CMD", "curl" ,"--fail","-k", "https://localhost:8000/time"]
       timeout: 20s
@@ -39,6 +40,7 @@ services:
     image: puteyun/cloud_contact_gateway:0.0.1
     container_name: cc_gateway
     network_mode: host
+    restart: always
     volumes:
       - ./:/data
     depends_on:
@@ -63,6 +65,7 @@ services:
     # if want expose to external,please uncomment this
     ports:
       - "53306:3306"
+    restart: always
     networks:
       - cc_network
   cc_redis:
@@ -70,6 +73,7 @@ services:
     container_name: cc_redis
     ports:
       - "6379:6379"
+    restart: always
     networks:
       - cc_network
     healthcheck:
