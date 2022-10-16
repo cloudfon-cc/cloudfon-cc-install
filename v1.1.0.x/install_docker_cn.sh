@@ -35,6 +35,11 @@ set_firewall(){
     firewall-cmd --permanent --new-service=cloudfon-cc || true
     firewall-cmd --permanent --service=cloudfon-cc --add-port=8000/tcp --set-description="cloudfon-cc"
     firewall-cmd --permanent --add-service=cloudfon-cc
+    firewall-cmd --permanent --new-service=webrtc_gw || true 
+    firewall-cmd --permanent --service=webrtc_gw --add-port=2443/tcp --set-description="webrtc_gw" 
+    firewall-cmd --permanent --service=webrtc_gw --add-port=25060/udp --set-description="webrtc_gw"
+    firewall-cmd --permanent --service=webrtc_gw --add-port=10000-20000/udp --set-description="webrtc_gw"
+    firewall-cmd --permanent --add-service=webrtc_gw
     firewall-cmd --reload
     systemctl restart firewalld
     echo ""
