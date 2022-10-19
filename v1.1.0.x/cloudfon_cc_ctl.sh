@@ -17,7 +17,7 @@ version: '3.9'
 services:
   # callcenter api
   cc_api:
-    image: puteyun/cloud_contact_center:0.1.5
+    image: puteyun/cloud_contact_center:0.1.6
     container_name: cc_api
     volumes:
       - ./:/data
