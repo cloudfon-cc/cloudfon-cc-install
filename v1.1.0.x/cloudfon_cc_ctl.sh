@@ -19,6 +19,8 @@ services:
   cc_api:
     image: puteyun/cloud_contact_center:0.1.6
     container_name: cc_api
+    extra_hosts:
+      - host.docker.internal:host-gateway
     volumes:
       - ./:/data
       - /etc/timezone:/etc/timezone:ro
