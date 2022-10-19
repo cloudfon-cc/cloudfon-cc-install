@@ -21,6 +21,8 @@ services:
     container_name: cc_api
     volumes:
       - ./:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "8001:8000"
     restart: always
@@ -43,6 +45,8 @@ services:
     restart: always
     volumes:
       - ./:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       cc_mariadb:
         condition: service_healthy
@@ -56,6 +60,8 @@ services:
     container_name: cc_mariadb
     volumes:
       - ./mariadb_data/data:/var/lib/mysql
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
       MYSQL_ROOT_PASSWORD: 8ccDNF77xcJKO
     healthcheck:
@@ -71,6 +77,9 @@ services:
   cc_redis:
     image: redis
     container_name: cc_redis
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "6379:6379"
     restart: always
