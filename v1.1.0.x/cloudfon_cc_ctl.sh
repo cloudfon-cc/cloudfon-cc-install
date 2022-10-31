@@ -17,7 +17,7 @@ version: '3.9'
 services:
   # callcenter api
   cc_api:
-    image: puteyun/cloud_contact_center:0.1.12
+    image: puteyun/cloud_contact_center:0.1.13
     container_name: cc_api
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -41,7 +41,7 @@ services:
       - cc_network
   # webrtc 网关
   cc_gateway:
-    image: puteyun/cloud_contact_gateway:0.0.5
+    image: puteyun/cloud_contact_gateway:0.0.6
     container_name: cc_gateway
     network_mode: host
     restart: always
