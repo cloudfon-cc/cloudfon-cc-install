@@ -17,7 +17,7 @@ version: '3.9'
 services:
   # callcenter api
   cc_api:
-    image: puteyun/cloud_contact_center:0.1.14
+    image: puteyun/cloud_contact_center:0.1.15
     container_name: cc_api
     extra_hosts:
       - host.docker.internal:host-gateway
