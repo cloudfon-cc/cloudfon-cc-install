@@ -41,7 +41,7 @@ services:
       - cc_network
   # webrtc 网关
   cc_gateway:
-    image: puteyun/cloud_contact_gateway:0.0.6
+    image: puteyun/cloud_contact_gateway:0.0.7
     container_name: cc_gateway
     network_mode: host
     restart: always
