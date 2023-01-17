@@ -27,7 +27,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
-      - "8001:8000"
+      - "9001:8000"
     restart: always
     healthcheck:
       test: [ "CMD", "curl" ,"--fail","-k", "https://localhost:8000/time"]
@@ -59,7 +59,7 @@ services:
       retries: 10
     # if want expose to external,please uncomment this
     ports:
-      - "53306:3306"
+      - "63306:3306"
     restart: always
     networks:
       - cc_network
