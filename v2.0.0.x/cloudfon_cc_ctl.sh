@@ -17,7 +17,7 @@ version: '3.9'
 services:
   # callcenter api
   cc_api:
-    image: puteyun/cloud_contact_center:2.0.2
+    image: $1
     container_name: cc_api
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -100,7 +100,19 @@ create() {
     # remove command firstly
     shift
 
-    export_configure
+    # 获取镜像名称
+    image='puteyun/cloud_contact_center:2.0.2'
+    
+    while getopts 'i:' opt; do
+        case "${opt}" in
+            i)
+                image="$OPTARG"
+            ;;
+        esac
+
+    done
+
+    export_configure $image
     # run cloudfon-cc service
     docker compose up -d
 
