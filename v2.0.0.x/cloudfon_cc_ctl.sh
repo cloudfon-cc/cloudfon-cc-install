@@ -101,7 +101,7 @@ create() {
     shift
 
     # 获取镜像名称
-    image='puteyun/cloud_contact_center:2.0.8'
+    image='puteyun/cloud_contact_center:2.0.8.R1'
     
     while getopts 'i:' opt; do
         case "${opt}" in
